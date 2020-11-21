@@ -29,11 +29,10 @@ app.use('/tag',tagRoute);
 
 
 //connect to db
-mongoose.connect(
-    process.env.DB_CONNECTION,
-    { useNewUrlParser: true ,useUnifiedTopology: true },()=>{
+mongoose.connect('mongodb://' + process.env.DB_CONNECTION + ':80/my_database'),
+{ useNewUrlParser: true ,useUnifiedTopology: true },()=>{
     console.log('connected to db');
-});
+};
 
 
 
