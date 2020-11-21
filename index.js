@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-require('dotenv/config');
+const argv = require('optimist').argv;
 
 const app = express();
 
@@ -29,7 +29,7 @@ app.use('/tag',tagRoute);
 
 
 //connect to db
-mongoose.connect('mongodb://' + process.env.DB_CONNECTION + ':80/my_database'),
+mongoose.connect('mongodb://' + argv.be_ip + ':80/my_database'),
 { useNewUrlParser: true ,useUnifiedTopology: true },()=>{
     console.log('connected to db');
 };
@@ -38,4 +38,4 @@ mongoose.connect('mongodb://' + process.env.DB_CONNECTION + ':80/my_database'),
 
 
 //Listen
-app.listen(3000);
+app.listen(8080,argv.fe_ip);

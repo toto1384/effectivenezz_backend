@@ -11,11 +11,12 @@
     "googleapis": "^65.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.15",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "optimist": "^0.6.1"
   },
   "devDependencies": {},
   "scripts": {
-    "start":"nodemon start"
+    "start": "nodemon start"
   },
   "repository": {
     "type": "git",
