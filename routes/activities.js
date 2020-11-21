@@ -43,7 +43,7 @@ router.get('/:id',verifyToken,async(req,res)=>{
 router.delete('/:id',verifyToken,async(req,res)=>{
     try{
         const removedEvent = await Activity.findByIdAndDelete(req.params.id)
-        await Scheduled.deleteMany({_id:{$in:removedEvent.scheduleds}})
+        await Scheduled.deleteMany({_id:{$in:removedEvent.schedules}})
         await User.updateOne({_id:req.user},{$pull:{activities:removedEvent}})
         res.json(removedEvent);
     }catch(err){
@@ -111,7 +111,7 @@ router.post('/',verifyToken,async(req,res)=>{
         
         try{
             const savedEvent = await event.save()
-            await User.update({_id:req.user},{$push:{activities:savedEvent._id}})
+            await User.updateOne({_id:req.user},{$push:{activities:savedEvent._id}})
             res.status(200).json(savedEvent)
         }catch(err){
             res.status(400).json({error:err})
