@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const argv = require('optimist').argv;
 
+const fs = require('fs');
+
+var privateKey = fs.readFileSync( 'cert.pem' );
+var certificate = fs.readFileSync( 'key.pem' );
+
 const app = express();
 
 //import routes
@@ -38,4 +43,6 @@ mongoose.connect('mongodb://' + argv.be_ip + ':80/my_database',
 
 
 //Listen
-app.listen(8080,argv.fe_ip);
+https.createServer({key: privateKey,cert: certificate}, app).listen(8080, function(){
+  console.log("Express server listening on port " + 8080);
+});
