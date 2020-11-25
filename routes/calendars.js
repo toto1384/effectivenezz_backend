@@ -15,7 +15,7 @@ const verifyToken = require('../verify_token')
 router.get('/',verifyToken,async(req,res)=>{
     try{
         const user = await User.findById(req.user);
-        const calendars = await Calendar.findById({$in:user.calendars})
+        const calendars = await Calendar.find({_id:{$in:user.calendars}}).exec()
         res.json(calendars);
     }catch(err){
         res.json({error:err});

@@ -3,9 +3,7 @@ const User = require('../models/User');
 const {registerOrUpdateUserValidation,loginValidation,}=require('../validation');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-var google = require('googleapis').google;
-var OAuth2 = google.auth.OAuth2;
-var oauth2Client = new OAuth2();
+const argv = require('optimist').argv;
 
 const Activity = require('../models/Activity')
 const Calendar = require('../models/Calendar')
@@ -37,7 +35,7 @@ router.get('/login',async (req,res)=>{
             const validId = await bcrypt.compare(req.body.googleId,user.googleId);
             if(!validId) return res.status(400).send('googleId does not match the email')
     
-            const token = jwt.sign({_id:user._id},process.env.TOKEN_SECRET)
+            const token = jwt.sign({_id:user._id},argv.secret)
     
             res.status(200).send(token)
         }else{
@@ -82,8 +80,8 @@ router.delete('/',verifyToken,async(req,res)=>{
         if(!removedUser)return res.status(404).send({message:'user does not exist'})
         await Tag.deleteMany({_id:{$in:removedUser.tags}})
         await Calendar.deleteMany({_id:{$in:removedUser.calendars}})
-        const tasks = await Task.findById({$in:removedUser.tasks})
-        const activities = await Activity.findById({$in:removedUser.activities})
+        const tasks = await Task.find({_id:{$in:removedUser.tasks}}).exec()
+        const activities = await Activity.find({_id:{$in:removedUser.activities}}).exec()
         if(tasks)tasks.forEach(async(item)=>{
             await Scheduled.deleteMany({_id:{$in:item.schedules}})
             await Task.findByIdAndDelete(item._id)

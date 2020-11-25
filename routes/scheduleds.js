@@ -10,7 +10,8 @@ const Scheduled = require('../models/Scheduled')
 const Task = require('../models/Task')
 const Activity = require('../models/Activity');
 const {scheduledValidation} = require('../validation');
-const verifyToken = require('../verify_token')
+const verifyToken = require('../verify_token');
+const User = require('../models/User');
 
 //GET ALL SCHEDULEDS BY EVENTID
 //PARAMS : EVENT ID , COMPANY ID
@@ -23,7 +24,27 @@ router.get('/by/:event',verifyToken,async(req,res)=>{
         if(activity)schedulesIds=activity.schedules
         if(task)schedulesIds=task.schedules
         if(schedulesIds){
-            var schedules = await Scheduled.findById({$in:schedulesIds})
+            var schedules = await Scheduled.find({_id:{$in:schedulesIds}}).exec()
+            res.json(schedules);
+        }else res.json(null)
+    }catch(err){
+        res.json({error:err});
+    }
+});
+
+
+//GET ALL SCHEDULEDS OF USER
+//FIND SCHEDULES ➡ GET SCHEDULEDS FROM THE EVENT
+router.get('/',verifyToken,async(req,res)=>{
+    try{
+        const user = await User.findById(req.user)
+        const activities = await Activity.find({_id:{$in:user.activities}}).exec()
+        const tasks = await Task.find({_id:{$in:user.tasks}}).exec()
+        var schedulesIds = []
+        if(activities)activities.forEach((element)=>{schedulesIds= schedulesIds.concat(element.schedules)})
+        if(tasks)tasks.forEach((element)=>{schedulesIds= schedulesIds.concat(element.schedules)})
+        if(schedulesIds){
+            var schedules = await Scheduled.find({_id:{$in:schedulesIds}}).exec()
             res.json(schedules);
         }else res.json(null)
     }catch(err){

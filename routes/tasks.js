@@ -19,7 +19,7 @@ const verifyToken = require('../verify_token')
 router.get('/',verifyToken,async(req,res)=>{
     try{
         const user = await User.findById(req.user);
-        const tasks = await Task.findById({$in:user.tasks})
+        const tasks = await Task.find({_id:{$in:user.tasks}}).exec()
         res.json(tasks);
     }catch(err){
         res.json({error:err});

@@ -89,7 +89,6 @@ const loginValidation= (data)=>{
     const userSchema = Joi.object({
         googleId: Joi.string().required(),
         email: Joi.string().email().required(),
-        accessToken: Joi.string()
     })
 
     return userSchema.validate(data);
@@ -106,7 +105,6 @@ const registerOrUpdateUserValidation= (data)=>{
         calendars: Joi.array().items(Joi.string()),
         tasks: Joi.array().items(Joi.string()),
         activities: Joi.array().items(Joi.string()),
-        accessToken:Joi.string()
     })
 
     return userSchema.validate(data);

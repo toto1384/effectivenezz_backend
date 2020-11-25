@@ -19,7 +19,7 @@ const {activityValidation} = require('../validation')
 router.get('/',verifyToken,async(req,res)=>{
     try{
         const user = await User.findById(req.user);
-        const activities = await Activity.findById({$in:user.activities})
+        const activities = await Activity.find({_id:{$in:user.activities}}).exec()
         res.json(activities);
     }catch(err){
         res.json({error:err});
