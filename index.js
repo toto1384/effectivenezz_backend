@@ -5,8 +5,10 @@ const argv = require('optimist').argv;
 
 const fs = require('fs');
 
-var privateKey = fs.readFileSync( 'cert.pem' );
-var certificate = fs.readFileSync( 'key.pem' );
+var path = require('path');
+
+var privateKey = fs.readFileSync( path.resolve('cert.pem') );
+var certificate = fs.readFileSync( path.resolve('key.pem') );
 
 const app = express();
 
