@@ -7,16 +7,16 @@ const activityValidation= (data)=>{
         _id:Joi.string(),
         name: Joi.string().required(),
         icon: Joi.number().required(),
-        tags: Joi.array().items(Joi.string()),
+        tags: Joi.array().items(Joi.string()).allow(null),
         color: Joi.string().required(),
-        trackedStart: Joi.array().items(Joi.date()),
-        trackedEnd: Joi.array().items(Joi.date()),
-        parentId:Joi.number(),
-        description:Joi.string(),
-        value:Joi.number(),
-        blacklistedDates:Joi.array().items(Joi.date()),
-        valueMultiply:Joi.number(),
-        schedules:Joi.array().items(Joi.string())
+        trackedStart: Joi.array().items(Joi.date()).allow(null),
+        trackedEnd: Joi.array().items(Joi.date()).allow(null),
+        parentId:Joi.number().allow(null),
+        description:Joi.string().allow(null),
+        value:Joi.number().allow(null),
+        blacklistedDates:Joi.array().items(Joi.date()).allow(null),
+        valueMultiply:Joi.number().allow(null),
+        schedules:Joi.array().items(Joi.string()).allow(null)
     })
 
     return activitySchema.validate(data);
@@ -29,10 +29,10 @@ const calendarValidation= (data)=>{
         _id:Joi.string(),
         name: Joi.string().required(),
         color: Joi.string().required(),
-        description: Joi.string(),
-        value:Joi.number(),
-        valueMultiply:Joi.number(),
-        show:Joi.boolean()
+        description: Joi.string().allow(null),
+        value:Joi.number().allow(null),
+        valueMultiply:Joi.number().allow(null),
+        show:Joi.boolean().allow(null)
     })
 
     return calendarSchema.validate(data);
@@ -44,18 +44,18 @@ const taskValidation= (data)=>{
     const taskSchema = Joi.object({
         _id:Joi.string(),
         name: Joi.string().required(),
-        checks: Joi.array().items(Joi.date()),
-        tags: Joi.array().items(Joi.string()),
+        checks: Joi.array().items(Joi.date()).allow(null),
+        tags: Joi.array().items(Joi.string()).allow(null),
         color: Joi.string().required(),
-        trackedStart: Joi.array().items(Joi.date()),
-        trackedEnd: Joi.array().items(Joi.date()),
-        parentId:Joi.number(),
-        isParentCalendar: Joi.boolean(),
-        description:Joi.string(),
-        value:Joi.number(),
-        blacklistedDates:Joi.array().items(Joi.date()),
-        valueMultiply:Joi.number(),
-        schedules:Joi.array().items(Joi.string())
+        trackedStart: Joi.array().items(Joi.date()).allow(null),
+        trackedEnd: Joi.array().items(Joi.date()).allow(null),
+        parentId:Joi.number().allow(null),
+        isParentCalendar: Joi.boolean().allow(null),
+        description:Joi.string().allow(null),
+        value:Joi.number().allow(null),
+        blacklistedDates:Joi.array().items(Joi.date()).allow(null),
+        valueMultiply:Joi.number().allow(null),
+        schedules:Joi.array().items(Joi.string()).allow(null)
     })
 
     return taskSchema.validate(data);
@@ -67,11 +67,11 @@ const taskValidation= (data)=>{
 const scheduledValidation= (data)=>{
     const scheduledSchema = Joi.object({
         _id:Joi.string(),
-        start: Joi.date(),
-        duration: Joi.number().min(0),
-        repeatRule: Joi.number(),
-        repeatValue: Joi.string(),
-        repeatUntil: Joi.date(),
+        start: Joi.date().allow(null),
+        duration: Joi.number().min(0).allow(null),
+        repeatRule: Joi.number().allow(null),
+        repeatValue: Joi.string().allow(null),
+        repeatUntil: Joi.date().allow(null),
     })
 
     return scheduledSchema.validate(data);
@@ -83,7 +83,7 @@ const tagValidation= (data)=>{
         _id:Joi.string(),
         name:Joi.string().required(),
         color:Joi.string().required(),
-        show: Joi.boolean()
+        show: Joi.boolean().allow(null)
     })
 
     return tagSchema.validate(data);
