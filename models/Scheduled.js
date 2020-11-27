@@ -19,7 +19,7 @@ const ScheduledSchema = mongoose.Schema({
         default: 0,
     },
     repeatValue: {
-        type: Number,
+        type: String,
         default: 0,
     },
     repeatUntil: {
