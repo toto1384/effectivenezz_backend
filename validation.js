@@ -4,6 +4,7 @@ const Joi = require('@hapi/joi');
 //Activity VALIDATION
 const activityValidation= (data)=>{
     const activitySchema = Joi.object({
+        _id:Joi.string(),
         name: Joi.string().required(),
         icon: Joi.number().required(),
         tags: Joi.array().items(Joi.string()),
@@ -25,6 +26,7 @@ const activityValidation= (data)=>{
 
 const calendarValidation= (data)=>{
     const calendarSchema = Joi.object({
+        _id:Joi.string(),
         name: Joi.string().required(),
         color: Joi.string().required(),
         description: Joi.string(),
@@ -40,6 +42,7 @@ const calendarValidation= (data)=>{
 //TASK VALIDATION
 const taskValidation= (data)=>{
     const taskSchema = Joi.object({
+        _id:Joi.string(),
         name: Joi.string().required(),
         checks: Joi.array().items(Joi.date()),
         tags: Joi.array().items(Joi.string()),
@@ -63,6 +66,7 @@ const taskValidation= (data)=>{
 
 const scheduledValidation= (data)=>{
     const scheduledSchema = Joi.object({
+        _id:Joi.string(),
         start: Joi.date(),
         duration: Joi.number().min(0),
         repeatRule: Joi.number(),
@@ -76,6 +80,7 @@ const scheduledValidation= (data)=>{
 //TAG VALIDATION
 const tagValidation= (data)=>{
     const tagSchema = Joi.object({
+        _id:Joi.string(),
         name:Joi.string().required(),
         color:Joi.string().required(),
         show: Joi.boolean()

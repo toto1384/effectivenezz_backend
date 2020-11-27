@@ -85,6 +85,7 @@ router.post('/',verifyToken,async(req,res)=>{
         }
 
         const tag = new Calendar({
+            _id:req.body._id,
             name: req.body.name,
             color:req.body.color,
             description:req.body.description,

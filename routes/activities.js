@@ -95,6 +95,7 @@ router.post('/',verifyToken,async(req,res)=>{
         }
 
         const event = new Activity({
+            _id:req.body._id,
             name: req.body.name,
             icon:req.body.icon,
             tags:req.body.tags,

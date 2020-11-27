@@ -115,6 +115,7 @@ router.post('/:event',verifyToken,async(req,res)=>{
     }
 
     const scheduled = new Scheduled({
+        _id:req.body._id,
         start:req.body.start,
         duration:req.body.duration,
         repeatRule:req.body.repeatRule,

@@ -97,6 +97,7 @@ router.post('/',verifyToken,async(req,res)=>{
     }
 
     const event = new Task({
+        _id:req.body._id,
         name: req.body.name,
         checks:req.body.checks,
         tags:req.body.tags,

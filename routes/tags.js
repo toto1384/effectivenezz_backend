@@ -60,6 +60,7 @@ router.patch('/:id',verifyToken,async(req,res)=>{
 
         const updatedTag = await Tag.updateOne
             ({_id:req.params.id},{
+                _id:req.body._id,
                 name: req.body.name,
                 color:req.body.color,
                 show:req.body.show

@@ -2,15 +2,26 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const argv = require('optimist').argv;
+const http = require('http');
+const https = require('https')
 
 const fs = require('fs');
 
 var path = require('path');
 
-var privateKey = fs.readFileSync( path.resolve('cert.pem') );
-var certificate = fs.readFileSync( path.resolve('key.pem') );
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.effectivenezz.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/api.effectivenezz.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/api.effectivenezz.com/chain.pem', 'utf8');
+
+const credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+};
 
 const app = express();
+app.use(express.static(__dirname, { dotfiles: 'allow' } ));
 
 //import routes
 app.use(bodyParser.json());
@@ -42,9 +53,14 @@ mongoose.connect('mongodb://' + argv.be_ip + ':80/my_database',
 });
 
 
+// Starting both http & https servers
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
+httpServer.listen(80, () => {
+        console.log('HTTP Server running on port 80');
+});
 
-//Listen
-https.createServer({key: privateKey,cert: certificate}, app).listen(8080, function(){
-  console.log("Express server listening on port " + 8080);
+httpsServer.listen(443, () => {
+        console.log('HTTPS Server running on port 443');
 });

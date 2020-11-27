@@ -18,7 +18,7 @@ const router = express.Router();
 //PARAMS: EMAIL AND GOOGLEID
 //CHECKS IF USER EXISTS, IF EXISTS, IT LOGS IN AND PROVIDES THE AUTH_TOKEN IN THE HEADERS IF IT MATCHES THE EMAIL
 //IF IT DOESN'T EXISTS IT CREATES THE USER WITH THE HASHED GOOGLEID AND THE PROFILE PIC AND NAME FROM GOOGLE APIS
-router.get('/login',async (req,res)=>{
+router.post('/login',async (req,res)=>{
 
     //email checking
     User.findOne({email:req.body.email},async(err,user)=>{
