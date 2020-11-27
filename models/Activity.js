@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 
 const ActivitySchema = mongoose.Schema({
-    _id:Number,
+    _id:{
+        type:String,
+        default:new mongoose.Types.ObjectId().toHexString(),
+    },
     name: {
         type: String,
         required: true
@@ -51,6 +54,6 @@ const ActivitySchema = mongoose.Schema({
         type: [String],
         default: [],
     },
-});
+}, { _id: false });
 
 module.exports = mongoose.model('Activities',ActivitySchema);

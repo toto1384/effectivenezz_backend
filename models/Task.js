@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 
 const TaskSchema = mongoose.Schema({
-    _id:Number,
+    _id:{
+        type:String,
+        default:new mongoose.Types.ObjectId().toHexString(),
+    },
     name: {
         type: String,
         required: true
@@ -55,6 +58,6 @@ const TaskSchema = mongoose.Schema({
         type: [String],
         default: [],
     },
-});
+},{ _id: false });
 
 module.exports = mongoose.model('Tasks',TaskSchema);

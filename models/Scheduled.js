@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 
 
 const ScheduledSchema = mongoose.Schema({
-    _id:Number,
+    _id:{
+        type:String,
+        default:new mongoose.Types.ObjectId().toHexString(),
+    },
     startTime: {
         type: Date,
     },
@@ -22,6 +25,6 @@ const ScheduledSchema = mongoose.Schema({
     repeatUntil: {
         type: Date,
     },
-});
+},{ _id: false });
 
 module.exports = mongoose.model('Schedules',ScheduledSchema);

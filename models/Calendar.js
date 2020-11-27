@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 
 const CalendarSchema = mongoose.Schema({
-    _id:Number,
+    _id:{
+        type:String,
+        default:new mongoose.Types.ObjectId().toHexString(),
+    },
     name: {
         type: String,
         required: true
@@ -27,6 +30,6 @@ const CalendarSchema = mongoose.Schema({
         type: Boolean,
         default: true,
     },
-});
+}, { _id: false });
 
 module.exports = mongoose.model('Calendars',CalendarSchema);

@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 
 const TagSchema = mongoose.Schema({
-    _id:Number,
+    _id:{
+        type:String,
+        default:new mongoose.Types.ObjectId().toHexString(),
+    },
     name: {
         type: String,
         required: true
@@ -15,6 +18,6 @@ const TagSchema = mongoose.Schema({
         type: Boolean,
         default : true
     },
-});
+},{ _id: false });
 
 module.exports = mongoose.model('Tags',TagSchema);
