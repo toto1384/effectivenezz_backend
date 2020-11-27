@@ -9,12 +9,12 @@ const activityValidation= (data)=>{
         icon: Joi.number().required(),
         tags: Joi.array().items(Joi.string()),
         color: Joi.string().required(),
-        trackedStart: Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
-        trackedEnd: Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
+        trackedStart: Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
+        trackedEnd: Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
         parentId:Joi.number(),
         description:Joi.string().allow(''),
         value:Joi.number(),
-        blacklistedDates:Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
+        blacklistedDates:Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
         valueMultiply:Joi.number(),
         schedules:Joi.array().items(Joi.string())
     })
@@ -44,16 +44,16 @@ const taskValidation= (data)=>{
     const taskSchema = Joi.object({
         _id:Joi.string(),
         name: Joi.string().required().allow(''),
-        checks: Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
+        checks: Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
         tags: Joi.array().items(Joi.string()),
         color: Joi.string().required(),
-        trackedStart: Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
-        trackedEnd: Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
+        trackedStart: Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
+        trackedEnd: Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
         parentId:Joi.number(),
         isParentCalendar: Joi.boolean(),
         description:Joi.string().allow(''),
         value:Joi.number(),
-        blacklistedDates:Joi.array().items(Joi.date().format('HH:mm:ss : dd-MM-yyyy')),
+        blacklistedDates:Joi.array().items(Joi.date().format('hh:mm:ss : DD-MM-YYYY')),
         valueMultiply:Joi.number(),
         schedules:Joi.array().items(Joi.string())
     })
@@ -67,11 +67,11 @@ const taskValidation= (data)=>{
 const scheduledValidation= (data)=>{
     const scheduledSchema = Joi.object({
         _id:Joi.string(),
-        startTime: Joi.date().format('HH:mm:ss : dd-MM-yyyy'),
+        startTime: Joi.date().format('hh:mm:ss : DD-MM-YYYY'),
         duration: Joi.number().min(0),
         repeatRule: Joi.number(),
         repeatValue: Joi.string(),
-        repeatUntil: Joi.date().format('HH:mm:ss : dd-MM-yyyy'),
+        repeatUntil: Joi.date().format('hh:mm:ss : DD-MM-YYYY'),
     })
 
     return scheduledSchema.validate(data);
